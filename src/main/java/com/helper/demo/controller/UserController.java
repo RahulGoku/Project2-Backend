@@ -109,7 +109,7 @@ public class UserController {
 	}
 	@GetMapping("/tutor")
 	public List<HelperDetails>getTutor() {
-		return this.service.getMechanical();
+		return this.service.getTutor();
 	}
 	@GetMapping("/electrician")
 	public List<HelperDetails>getElectrician() {
@@ -118,7 +118,7 @@ public class UserController {
 	
 	@GetMapping("/other")
 	public List<HelperDetails>getOther() {
-		return this.service.getMechanical();
+		return this.service.getOther();
 	}
 
 ///////////////////////Customer section//////////////////////
