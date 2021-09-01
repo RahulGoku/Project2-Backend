@@ -2,27 +2,19 @@ package com.helper.demo.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.helper.demo.dao.CoursesDao;
 import com.helper.demo.dao.CustomerDao;
 import com.helper.demo.dao.HelperDetailsDao;
-import com.helper.demo.dao.UserDetailsDao;
-import com.helper.demo.model.Courses;
 import com.helper.demo.model.Customer;
 import com.helper.demo.model.HelperDetails;
-import com.helper.demo.model.UserDetails;
 import com.helper.demo.service.Service;
 
 @org.springframework.stereotype.Service
 public class ServiceImpl implements Service{
 
-	@Autowired
-	private CoursesDao cd;
-	@Autowired
-	private UserDetailsDao ud;
+
 	@Autowired
 	private HelperDetailsDao hd;
 	@Autowired
@@ -30,47 +22,8 @@ public class ServiceImpl implements Service{
 	private List<HelperDetails> list1;
 
 	
-	@Override
-	public List<Courses> getAllCourses() {
-		return cd.findAll();
-	}
-
-	@Override
-	public Optional<Courses> getCourse(int cid) {
-		return cd.findById(cid);
-	}
-
-	@Override
-	public Courses createCourse(Courses courses) {
-		cd.save(courses);
-		return courses;
-	}
-
-	@Override
-	public Courses updateCourse(Courses courses) {
-		cd.save(courses);
-		return courses;
-	}
-
-	@Override
-	public String removeCourse(int cid) {
-		cd.deleteById(cid);
-		return "course deleted sucessfully";
-	}
 	
 	
-////////////////////user section//////////////////////////////////////
-	
-	@Override
-	public List<UserDetails> getAllUsers() {
-		return ud.findAll();
-	}
-	
-	@Override
-	public UserDetails createUser(UserDetails userDetails) {
-		ud.save(userDetails);
-		return userDetails;
-	}
 	
 	
 	///////////////////helper section///////////////////////////
@@ -169,9 +122,91 @@ public class ServiceImpl implements Service{
 	@Override
 	public HelperDetails createHelper(HelperDetails helperDetails) {
 		hd.save(helperDetails);
-	
 		return helperDetails;
 	}
+	
+	@Override
+	public List<HelperDetails> getMEchanicByLocation(String location) {
+         
+		 List<HelperDetails> Mechanical= getMechanical();
+		 List<HelperDetails> list1=new  ArrayList<>();
+		 for (HelperDetails helperdetails : Mechanical) {
+			    if(helperdetails.getLocation().equals(location))
+			    {
+			    list1.add(helperdetails);
+			    }
+			  }
+
+			 if(list1.isEmpty())return null;
+			 else return list1;
+		 
+	}
+	@Override
+	public List<HelperDetails> getPlumberByLocation(String location) {
+         
+		 List<HelperDetails> Mechanical= getPlumber();
+		 List<HelperDetails> list1=new  ArrayList<>();
+		 for (HelperDetails helperdetails : Mechanical) {
+			    if(helperdetails.getLocation().equals(location))
+			    {
+			    list1.add(helperdetails);
+			    }
+			  }
+
+			 if(list1.isEmpty())return null;
+			 else return list1;
+		 
+	}
+	@Override
+	public List<HelperDetails> getElectricianByLocation(String location) {
+         
+		 List<HelperDetails> Mechanical= getElectrician();
+		 List<HelperDetails> list1=new  ArrayList<>();
+		 for (HelperDetails helperdetails : Mechanical) {
+			    if(helperdetails.getLocation().equals(location))
+			    {
+			    list1.add(helperdetails);
+			    }
+			  }
+
+			 if(list1.isEmpty())return null;
+			 else return list1;
+		 
+	}
+	@Override
+	public List<HelperDetails> getTutorByLocation(String location) {
+         
+		 List<HelperDetails> Mechanical= getTutor();
+		 List<HelperDetails> list1=new  ArrayList<>();
+		 for (HelperDetails helperdetails : Mechanical) {
+			    if(helperdetails.getLocation().equals(location))
+			    {
+			    list1.add(helperdetails);
+			    }
+			  }
+
+			 if(list1.isEmpty())return null;
+			 else return list1;
+		 
+	}
+	@Override
+	public List<HelperDetails> getOtherByLocation(String location) {
+         
+		 List<HelperDetails> Mechanical= getOther();
+		 List<HelperDetails> list1=new  ArrayList<>();
+		 for (HelperDetails helperdetails : Mechanical) {
+			    if(helperdetails.getLocation().equals(location))
+			    {
+			    list1.add(helperdetails);
+			    }
+			  }
+
+			 if(list1.isEmpty())return null;
+			 else return list1;
+		 
+	}
+	
+	
 	
 ///////////////////Customer section///////////////////////////
 
@@ -203,6 +238,22 @@ public Customer getCustomerId(String tempEmailId) {
 	  }
 	  return null;
 	}
+
+@Override
+public List<Customer> getCustomer(String tempEmailId) {
+	  List<Customer> list=ct.findAll();
+	  List<Customer>list1=new ArrayList<>();
+	  for (Customer customer : list) {
+	    if(customer.getEmail().equals(tempEmailId) )
+	    {
+	     list1.add(customer);
+	    }
+	  }
+	  System.out.println("Function Called>>>>>>>>>>>>>>>>>>: "+list1);
+	  return list1;
+	}
+
+
 
 
 	
