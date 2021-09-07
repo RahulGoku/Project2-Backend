@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.helper.demo.dao.CustomerDao;
+import com.helper.demo.dao.FeedbackDao;
 import com.helper.demo.dao.HelperDetailsDao;
 import com.helper.demo.model.Customer;
+import com.helper.demo.model.Feedback;
 import com.helper.demo.model.HelperDetails;
 import com.helper.demo.service.Service;
 
@@ -19,6 +21,9 @@ public class ServiceImpl implements Service{
 	private HelperDetailsDao hd;
 	@Autowired
 	private CustomerDao ct;
+	
+	@Autowired
+	private FeedbackDao fd;
 	private List<HelperDetails> list1;
 
 	
@@ -190,6 +195,22 @@ public class ServiceImpl implements Service{
 		 
 	}
 	@Override
+	public List<HelperDetails> getCarpenterByLocation(String location) {
+         
+		 List<HelperDetails> Mechanical= getCarpenter();
+		 List<HelperDetails> list1=new  ArrayList<>();
+		 for (HelperDetails helperdetails : Mechanical) {
+			    if(helperdetails.getLocation().equals(location))
+			    {
+			    list1.add(helperdetails);
+			    }
+			  }
+
+			 if(list1.isEmpty())return null;
+			 else return list1;
+		 
+	}
+	@Override
 	public List<HelperDetails> getOtherByLocation(String location) {
          
 		 List<HelperDetails> Mechanical= getOther();
@@ -205,6 +226,29 @@ public class ServiceImpl implements Service{
 			 else return list1;
 		 
 	}
+	
+	@Override
+	public List<HelperDetails> getHelper(String tempEmailId) {
+//		  List<HelperDetails> list=hd.findAll();
+		  List<Customer>list1=getCustomer(tempEmailId);
+		  List<Customer> list2=new  ArrayList<>();
+		  List<HelperDetails> list3=new  ArrayList<>();
+		  for (Customer customer : list1) {
+		    if(customer.getEmail().equals(tempEmailId) )
+		    {
+		     list2.add(customer);
+		    }
+		  }
+		  List<HelperDetails> list=hd.findAll();
+		  for (HelperDetails helper : list) {
+			    if(helper.getCustomer().getEmail().equals(tempEmailId) )
+			    {
+			     list3.add(helper);
+			    }
+			  }
+		  System.out.println("Function Called>>>>>>>>>>>>>>>>>>: "+list3);
+		  return list3;
+		}
 	
 	
 	
@@ -252,6 +296,12 @@ public List<Customer> getCustomer(String tempEmailId) {
 	  System.out.println("Function Called>>>>>>>>>>>>>>>>>>: "+list1);
 	  return list1;
 	}
+///////////////////Feedback section///////////////////////////
+@Override
+public Feedback createQuery(Feedback feedback) {
+	fd.save(feedback);
+	return feedback;
+}
 
 
 

@@ -3,6 +3,7 @@ package com.helper.demo.service;
 import java.util.List;
 
 import com.helper.demo.model.Customer;
+import com.helper.demo.model.Feedback;
 import com.helper.demo.model.HelperDetails;
 
 public interface Service {
@@ -11,6 +12,7 @@ public interface Service {
 	
 	public Customer loginCustomer(String tempEmailId, String tempPassword);
 	public Customer createCustomer(Customer customer);
+	public Feedback createQuery(Feedback feedback);
 	public Customer getCustomerId(String tempEmailId);
 
 	public List<HelperDetails> getAllHelper();
@@ -28,5 +30,7 @@ public interface Service {
 	public List<HelperDetails> getElectricianByLocation(String location);
 	public List<HelperDetails> getTutorByLocation(String location);
 	public List<HelperDetails> getOtherByLocation(String location);
+	public List<HelperDetails> getCarpenterByLocation(String location);
+	public List<HelperDetails> getHelper(String tempEmailId);
 	
 }

@@ -2,6 +2,8 @@ package com.helper.demo.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.helper.demo.model.Customer;
+import com.helper.demo.model.Feedback;
 import com.helper.demo.model.HelperDetails;
 import com.helper.demo.service.Service;
 
 @RestController
 @CrossOrigin
 public class UserController {
+	private static Logger log = LogManager.getLogger(UserController.class);
 
 	@Autowired
 	private Service service;
@@ -78,27 +82,35 @@ public class UserController {
 		return this.service.getOther();
 	}
 	@CrossOrigin("*")
-	@GetMapping("/mechanic/{location}")
+	@GetMapping("/mechanicl/{location}")
 	public List<HelperDetails>getMEchanicByLocation(@PathVariable("location") String location) {
 		return this.service.getMEchanicByLocation(location);
 	}
-	@GetMapping("/plumber/{location}")
+	@GetMapping("/plumberl/{location}")
 	public List<HelperDetails>getPlumberByLocation(@PathVariable("location") String location) {
 		return this.service.getPlumberByLocation(location);
 	}
-	@GetMapping("/electrician/{location}")
+	@GetMapping("/electricianl/{location}")
 	public List<HelperDetails>getElectricianByLocation(@PathVariable("location") String location) {
 		return this.service.getElectricianByLocation(location);
 	}
-	@GetMapping("/tutor/{location}")
+	@GetMapping("/tutorl/{location}")
 	public List<HelperDetails>getTutorByLocation(@PathVariable("location") String location) {
 		return this.service.getTutorByLocation(location);
 	}
-	@GetMapping("/other/{location}")
+	@GetMapping("/otherl/{location}")
 	public List<HelperDetails>getOtherByLocation(@PathVariable("location") String location) {
 		return this.service.getOtherByLocation(location);
 	}
-	
+	@GetMapping("/carpenterl/{location}")
+	public List<HelperDetails>getCarpenterByLocCaation(@PathVariable("location") String location) {
+		return this.service.getCarpenterByLocation(location);
+	}
+	@CrossOrigin
+	@GetMapping("/helperid/{email}")
+	public List<HelperDetails> getHelper(@PathVariable("email") String Email) {
+		return service.getHelper(Email);
+	}
 	
 
 ///////////////////////Customer section//////////////////////
@@ -110,6 +122,7 @@ public class UserController {
 	}
 	@PostMapping("/login")
 	public Customer login(@RequestBody Customer user) throws Exception {
+		log.info("Hello Rahul");
 	  String tempEmailId = user.getEmail();
 	  String tempPassword = user.getUserPassword();
 	  Customer cust = null;
@@ -131,5 +144,11 @@ public class UserController {
 	public List<Customer> getCustomer(@PathVariable("email") String Email) {
 		return service.getCustomer(Email);
 	}
-	 
+///////////////////////Feedback section//////////////////////
+	@CrossOrigin
+	@PostMapping("/feed/add")
+	public Feedback createQuery(@RequestBody Feedback feedback) {
+		Feedback cs = this.service.createQuery(feedback);
+		return cs;
+	}
 }
